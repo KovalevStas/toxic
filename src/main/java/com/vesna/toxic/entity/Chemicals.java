@@ -19,5 +19,5 @@ public class Chemicals {
     private String casrn;
 
     @Column
-    private String route;
+    private String crit_systems;
 }

@@ -8,5 +8,5 @@ import lombok.Data;
 public class ChemicalsDto {
     private String casrn;
     private String cname;
-    private String route;
+    private String crit_systems;
 }

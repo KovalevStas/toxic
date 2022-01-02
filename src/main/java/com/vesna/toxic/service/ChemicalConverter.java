@@ -11,7 +11,7 @@ public class ChemicalConverter {
         Chemicals chemicals = new Chemicals();
         chemicals.setCasrn(chemicalsDto.getCasrn());
         chemicals.setCname(chemicalsDto.getCname());
-        chemicals.setRoute(chemicalsDto.getRoute());
+        chemicals.setCrit_systems(chemicalsDto.getCrit_systems());
         return chemicals;
     }
 
@@ -19,7 +19,7 @@ public class ChemicalConverter {
         return ChemicalsDto.builder()
                 .casrn(chemicals.getCasrn())
                 .cname(chemicals.getCname())
-                .route(chemicals.getRoute())
+                .crit_systems(chemicals.getCrit_systems())
                 .build();
     }
 }

@@ -23,12 +23,13 @@
 <body>
 <h1>Chemicals manager</h1>
 
+<input id="search_field">
+<button onclick="searchByCasrn()">Search by Casrn</button>
+<button onclick="loadChemicals()">View All Chemicals</button>
+
 <table id="ChemicalList">
 
 </table>
-
-<input id="search_field">
-<button onclick="searchByCasrn()">Search by Casrn</button>
 <script>
     function searchByCasrn() {
         var casrn = document.getElementById("search_field").value;
@@ -39,13 +40,11 @@
                 var html = '<tr>\n' +
                     '        <th>Casrn</th>\n' +
                     '        <th>Chemical Name</th>\n' +
-                    '        <th>Chemical Route</th>\n' +
-                    '        <th>Delete</th>\n' +
+                    '        <th>Critical Effect Systems</th>\n' +
                     '    </tr>';
                 html = html + '<tr><td>' + chemical.casrn + '</td>\n' +
                     '        <td>' + chemical.cname + '</td>\n' +
-                    '        <td>' + chemical.route + '</td>\n' +
-                    '        <td><button onclick="deleteChemical(' + chemical.casrn + ')">Delete</button></td></tr>';
+                    '        <td>' + chemical.crit_systems + '</td>\n';
                 document.getElementById("ChemicalList").innerHTML = html;
             }
         };
@@ -67,16 +66,14 @@
                 var html = '<tr>\n' +
                     '        <th>Casrn</th>\n' +
                     '        <th>Chemical Name</th>\n' +
-                    '        <th>Chemical Route</th>\n' +
-                    '        <th>Delete</th>\n' +
+                    '        <th>Critical Effect Systems</th>\n' +
                     '    </tr>';
                 for (var i = 0; i < chemicals.length; i++) {
                     var chemical = chemicals[i];
                     console.log(chemicals);
                     html = html + '<tr><td>' + chemical.casrn + '</td>\n' +
                         '        <td>' + chemical.cname + '</td>\n' +
-                        '        <td>' + chemical.route + '</td>\n' +
-                        '        <td><button onclick="deleteChemical(' + chemical.casrn + ')">Delete</button></td></tr>';
+                        '        <td>' + chemical.crit_systems + '</td>\n';
 
                 }
                 document.getElementById("ChemicalList").innerHTML = html;
