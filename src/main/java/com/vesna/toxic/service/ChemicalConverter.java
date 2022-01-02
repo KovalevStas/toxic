@@ -15,11 +15,11 @@ public class ChemicalConverter {
         return chemicals;
     }
 
-    public ChemicalsDto fromChemicalToChemicalDto(Chemicals users) {
+    public ChemicalsDto fromChemicalToChemicalDto(Chemicals chemicals) {
         return ChemicalsDto.builder()
-                .casrn(users.getCasrn())
-                .cname(users.getCname())
-                .route(users.getRoute())
+                .casrn(chemicals.getCasrn())
+                .cname(chemicals.getCname())
+                .route(chemicals.getRoute())
                 .build();
     }
 }

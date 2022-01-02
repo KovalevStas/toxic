@@ -1,10 +1,92 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+        table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+        }
+
+        tr:nth-child(even) {
+            background-color: #dddddd;
+        }
+    </style>
     <meta charset="UTF-8">
-    <title>My first page</title>
 </head>
 <body>
-<h1>Welcome to page!</h1>
+<h1>Chemicals manager</h1>
+
+<table id="ChemicalList">
+
+</table>
+
+<input id="search_field">
+<button onclick="searchByCasrn()">Search by Casrn</button>
+<script>
+    function searchByCasrn() {
+        var casrn = document.getElementById("search_field").value;
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var chemical = JSON.parse(this.responseText);
+                var html = '<tr>\n' +
+                    '        <th>Casrn</th>\n' +
+                    '        <th>Chemical Name</th>\n' +
+                    '        <th>Chemical Route</th>\n' +
+                    '        <th>Delete</th>\n' +
+                    '    </tr>';
+                html = html + '<tr><td>' + chemical.casrn + '</td>\n' +
+                    '        <td>' + chemical.cname + '</td>\n' +
+                    '        <td>' + chemical.route + '</td>\n' +
+                    '        <td><button onclick="deleteChemical(' + chemical.casrn + ')">Delete</button></td></tr>';
+                document.getElementById("ChemicalList").innerHTML = html;
+            }
+        };
+        xhttp.open("GET", "http://localhost:8080/chemicals/findByCasrn?casrn=" + casrn, true);
+        xhttp.send();
+    }
+
+    function deleteChemical(casrn) {
+        var xhttp = new XMLHttpRequest();
+        xhttp.open("DELETE", "http://localhost:8080/chemicals/delete/" + casrn, true);
+        xhttp.send();
+    }
+
+    function loadChemicals() {
+        var xhttp = new XMLHttpRequest();
+        xhttp.onreadystatechange = function () {
+            if (this.readyState == 4 && this.status == 200) {
+                var chemicals = JSON.parse(this.responseText);
+                var html = '<tr>\n' +
+                    '        <th>Casrn</th>\n' +
+                    '        <th>Chemical Name</th>\n' +
+                    '        <th>Chemical Route</th>\n' +
+                    '        <th>Delete</th>\n' +
+                    '    </tr>';
+                for (var i = 0; i < chemicals.length; i++) {
+                    var chemical = chemicals[i];
+                    console.log(chemicals);
+                    html = html + '<tr><td>' + chemical.casrn + '</td>\n' +
+                        '        <td>' + chemical.cname + '</td>\n' +
+                        '        <td>' + chemical.route + '</td>\n' +
+                        '        <td><button onclick="deleteChemical(' + chemical.casrn + ')">Delete</button></td></tr>';
+
+                }
+                document.getElementById("ChemicalList").innerHTML = html;
+            }
+        };
+        xhttp.open("GET", "http://localhost:8080/chemicals/findAll", true);
+        xhttp.send();
+    }
+
+    loadChemicals();
+</script>
 </body>
 </html>
